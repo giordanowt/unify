@@ -1,0 +1,4 @@
+C:\Estudos\unify\Unify\Unisinos.Spotify.Dominio\obj\Debug\netstandard2.0\Unisinos.Spotify.Dominio.csprojAssemblyReference.cache
+C:\Estudos\unify\Unify\Unisinos.Spotify.Dominio\obj\Debug\netstandard2.0\Unisinos.Spotify.Dominio.csproj.CoreCompileInputs.cache
+C:\Estudos\unify\Unify\Unisinos.Spotify.Dominio\obj\Debug\netstandard2.0\Unisinos.Spotify.Dominio.AssemblyInfoInputs.cache
+C:\Estudos\unify\Unify\Unisinos.Spotify.Dominio\obj\Debug\netstandard2.0\Unisinos.Spotify.Dominio.AssemblyInfo.cs
