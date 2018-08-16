@@ -2,3 +2,8 @@ C:\Estudos\unify\Unify\Unisinos.Spotify.Dominio\obj\Debug\netstandard2.0\Unisino
 C:\Estudos\unify\Unify\Unisinos.Spotify.Dominio\obj\Debug\netstandard2.0\Unisinos.Spotify.Dominio.csproj.CoreCompileInputs.cache
 C:\Estudos\unify\Unify\Unisinos.Spotify.Dominio\obj\Debug\netstandard2.0\Unisinos.Spotify.Dominio.AssemblyInfoInputs.cache
 C:\Estudos\unify\Unify\Unisinos.Spotify.Dominio\obj\Debug\netstandard2.0\Unisinos.Spotify.Dominio.AssemblyInfo.cs
+C:\Estudos\unify\Unify\Unisinos.Spotify.Dominio\bin\Debug\netstandard2.0\Unisinos.Spotify.Dominio.deps.json
+C:\Estudos\unify\Unify\Unisinos.Spotify.Dominio\bin\Debug\netstandard2.0\Unisinos.Spotify.Dominio.dll
+C:\Estudos\unify\Unify\Unisinos.Spotify.Dominio\bin\Debug\netstandard2.0\Unisinos.Spotify.Dominio.pdb
+C:\Estudos\unify\Unify\Unisinos.Spotify.Dominio\obj\Debug\netstandard2.0\Unisinos.Spotify.Dominio.dll
+C:\Estudos\unify\Unify\Unisinos.Spotify.Dominio\obj\Debug\netstandard2.0\Unisinos.Spotify.Dominio.pdb
