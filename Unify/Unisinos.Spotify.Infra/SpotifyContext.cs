@@ -15,15 +15,16 @@ namespace Unisinos.Spotify.Infra
         public DbSet<Musica> Musicas { get; set; }
 
         public DbSet<Usuario> Usuarios { get; set; }
-
         
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfiguration(new AlbumMapping());
+            modelBuilder.ApplyConfiguration(new PlaylistMapping());
             modelBuilder.ApplyConfiguration(new MusicaMapping());
-            modelBuilder.ApplyConfiguration(new UsuarioMapping());        
+            modelBuilder.ApplyConfiguration(new AlbumMapping());
+            modelBuilder.ApplyConfiguration(new MusicaMapping());                   
             modelBuilder.ApplyConfiguration(new PlaylistMusicaMapping());        
+            modelBuilder.ApplyConfiguration(new UsuarioMapping());   
         }
 
     }
