@@ -1,0 +1,75 @@
+
+BEGIN
+    CREATE TABLE [__EFMigrationsHistory] (
+        [MigrationId] nvarchar(150) NOT NULL,
+        [ProductVersion] nvarchar(32) NOT NULL,
+        CONSTRAINT [PK___EFMigrationsHistory] PRIMARY KEY ([MigrationId])
+    );
+END;
+
+GO
+
+CREATE TABLE [Album] (
+    [Id] int NOT NULL IDENTITY,
+    [Nome] nvarchar(20) NULL,
+    CONSTRAINT [PK_Album] PRIMARY KEY ([Id])
+);
+
+GO
+
+CREATE TABLE [Playlists] (
+    [Id] int NOT NULL IDENTITY,
+    [Nome] nvarchar(40) NULL,
+    CONSTRAINT [PK_Playlists] PRIMARY KEY ([Id])
+);
+
+GO
+
+CREATE TABLE [Usuario] (
+    [Id] int NOT NULL IDENTITY,
+    [Nome] nvarchar(40) NULL,
+    CONSTRAINT [PK_Usuario] PRIMARY KEY ([Id])
+);
+
+GO
+
+CREATE TABLE [Musica] (
+    [Id] int NOT NULL IDENTITY,
+    [Nome] nvarchar(40) NULL,
+    [Duracao] float NOT NULL,
+    [AlbumId] int NULL,
+    CONSTRAINT [PK_Musica] PRIMARY KEY ([Id]),
+    CONSTRAINT [FK_Musica_Album_AlbumId] FOREIGN KEY ([AlbumId]) REFERENCES [Album] ([Id]) ON DELETE CASCADE
+);
+
+GO
+
+CREATE TABLE [PlaylistMusica] (
+    [Id] int NOT NULL IDENTITY,
+    [MusicaId] int NOT NULL,
+    [PlaylistId] int NOT NULL,
+    CONSTRAINT [PK_PlaylistMusica] PRIMARY KEY ([Id]),
+    CONSTRAINT [FK_PlaylistMusica_Musica_MusicaId] FOREIGN KEY ([MusicaId]) REFERENCES [Musica] ([Id]) ON DELETE CASCADE,
+    CONSTRAINT [FK_PlaylistMusica_Playlists_PlaylistId] FOREIGN KEY ([PlaylistId]) REFERENCES [Playlists] ([Id]) ON DELETE CASCADE
+);
+
+GO
+
+CREATE INDEX [IX_Musica_AlbumId] ON [Musica] ([AlbumId]);
+
+GO
+
+CREATE INDEX [IX_PlaylistMusica_MusicaId] ON [PlaylistMusica] ([MusicaId]);
+
+GO
+
+CREATE INDEX [IX_PlaylistMusica_PlaylistId] ON [PlaylistMusica] ([PlaylistId]);
+
+GO
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20180816141240_FirstMigration', N'2.1.1-rtm-30846');
+
+GO
+
+
