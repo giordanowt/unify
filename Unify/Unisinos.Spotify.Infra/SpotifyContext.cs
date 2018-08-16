@@ -23,6 +23,7 @@ namespace Unisinos.Spotify.Infra
             modelBuilder.ApplyConfiguration(new AlbumMapping());
             modelBuilder.ApplyConfiguration(new MusicaMapping());
             modelBuilder.ApplyConfiguration(new UsuarioMapping());        
+            modelBuilder.ApplyConfiguration(new PlaylistMusicaMapping());        
         }
 
     }
