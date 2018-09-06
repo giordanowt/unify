@@ -18,10 +18,9 @@ namespace Unisinos.Spotify.WebApi
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            var connectionString = "Data Source = NB-003795\\SQLEXPRESS; Initial Catalog = Spotify; User ID=giordano;Password=giordano;";
+            var connectionString = "Data Source = localhost; Initial Catalog = Spotify; User ID=sa;Password=A1b2C3d4*;";
 
             services.AddDbContext<SpotifyContext>(options => options.UseSqlServer(connectionString));
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,4 +1,7 @@
 ﻿using System;
+using Unisinos.Spotify.Infra;
+using System.IO;
+using Microsoft.Extensions.Configuration;
 
 namespace Unisinos.Spotify.JsonCli
 {
@@ -6,7 +9,17 @@ namespace Unisinos.Spotify.JsonCli
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            using (var db = new SpotifyContext())
+            {
+                db.Usuarios.Add(new Dominio.Usuario
+                {
+                    Nome = "Jefin"
+                });
+
+                db.SaveChanges();
+            }
+
+            Console.ReadKey();
         }
     }
 }

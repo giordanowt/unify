@@ -1,19 +1,20 @@
 using Microsoft.EntityFrameworkCore;
 using Unisinos.Spotify.Dominio;
 using Unisinos.Spotify.Infra.Mappings;
+using System.Configuration;
 
 namespace Unisinos.Spotify.Infra
 {
     public class SpotifyContext : DbContext
     {
+        public SpotifyContext() : base() { }
+
         public SpotifyContext(DbContextOptions options) : base(options)
         {
         }
 
         public DbSet<Album> Albums { get; set; }
-
         public DbSet<Musica> Musicas { get; set; }
-
         public DbSet<Usuario> Usuarios { get; set; }
         
 
@@ -27,5 +28,9 @@ namespace Unisinos.Spotify.Infra
             modelBuilder.ApplyConfiguration(new UsuarioMapping());   
         }
 
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlServer(ConfigurationManager.ConnectionStrings["UnifyDatabase"].ConnectionString);
+        }
     }
 }
