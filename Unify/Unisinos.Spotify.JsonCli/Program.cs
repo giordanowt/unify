@@ -6,6 +6,8 @@ using Microsoft.Extensions.Configuration;
 using Unisinos.Spotify.Dominio;
 using Microsoft.EntityFrameworkCore;
 using System.Configuration;
+using System.Linq;
+using Newtonsoft.Json;
 
 using static System.Console;
 
@@ -59,6 +61,7 @@ namespace Unisinos.Spotify.JsonCli
 
             using(var db = GetContext())
             {
+                /*
                 var usuario = db.Usuarios.First();
 
                 var musica = new Musica
@@ -76,7 +79,17 @@ namespace Unisinos.Spotify.JsonCli
                 db.Musicas.Add(musica);
                 db.Playlists.Add(playlist);
 
-                db.SaveChanges();
+                db.SaveChanges();*/
+                
+                var fileWriter = new StreamWriter(File.Create("Albuns.json"));
+                fileWriter.WriteLine(JsonConvert.SerializeObject(db.Albums.ToList()));
+                fileWriter.Dispose();
+                fileWriter = new StreamWriter(File.Create("Musica.json"));
+                fileWriter.WriteLine(JsonConvert.SerializeObject(db.Musicas.ToList()));
+                fileWriter.Dispose();
+                fileWriter = new StreamWriter(File.Create("Usuarios.json"));
+                fileWriter.WriteLine(JsonConvert.SerializeObject(db.Usuarios.ToList()));
+                fileWriter.Dispose();
             }
         }
         
