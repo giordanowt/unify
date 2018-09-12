@@ -9,15 +9,13 @@ namespace Unisinos.Spotify.Infra
     {
         public SpotifyContext() : base() { }
 
-        public SpotifyContext(DbContextOptions options) : base(options)
-        {
-        }
+        public SpotifyContext(DbContextOptions options) : base(options) { }
 
         public DbSet<Album> Albums { get; set; }
         public DbSet<Musica> Musicas { get; set; }
         public DbSet<Usuario> Usuarios { get; set; }
+        public DbSet<Playlist> Playlists { get; set; }
         
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new PlaylistMapping());
@@ -30,7 +28,7 @@ namespace Unisinos.Spotify.Infra
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(ConfigurationManager.ConnectionStrings["UnifyDatabase"].ConnectionString);
+            //optionsBuilder.UseSqlServer(ConfigurationManager.ConnectionStrings["UnifyDatabase"].ConnectionString);
         }
     }
 }
