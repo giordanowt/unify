@@ -9,7 +9,6 @@ using System.Configuration;
 using System.Linq;
 using Newtonsoft.Json;
 using System.Xml.Serialization;
-using System.Collections.Generic;
 
 using static System.Console;
 
@@ -24,6 +23,7 @@ namespace Unisinos.Spotify.JsonCli
             {
                 WriteLine("1 - Seed dos dados");
                 WriteLine("2 - Gerar JSON");
+                WriteLine("3 - Gerar XML");
             }
             while(!int.TryParse(ReadLine(), out opt) || opt < 1 || opt > 2);
 
@@ -34,6 +34,9 @@ namespace Unisinos.Spotify.JsonCli
                     break;
                 case 2:
                     GerarJson();
+                    break;
+                case 3:
+                    GerarXML();
                     break;
             }
 
@@ -47,23 +50,19 @@ namespace Unisinos.Spotify.JsonCli
             using(var context = GetContext())
             {
                 var usuarios = context.Usuarios
-                                      .Include(u => u.PlaylistsCriadas)
-                                      .ThenInclude(p => p.PlaylistMusica)
-                                      .ThenInclude(pm => pm.Musica)
-                                      .ToList();
-
-                                      
-                 
+                    .Include(u => u.PlaylistsCriadas)
+                    .ThenInclude(p => p.PlaylistMusica)
+                    .ThenInclude(pm => pm.Musica)
+                    .ToList();
             }
         }
 
         static void Seed()
         {
-            //AdicionarUsuarios();
+            AdicionarUsuarios();
 
             using(var db = GetContext())
             {
-                /*
                 var usuario = db.Usuarios.First();
 
                 var musica = new Musica
@@ -81,47 +80,49 @@ namespace Unisinos.Spotify.JsonCli
                 db.Musicas.Add(musica);
                 db.Playlists.Add(playlist);
 
-                db.SaveChanges();*/
-
-                GerarJSON(db);
-
-                GerarXML(db);
-
+                db.SaveChanges();
             }
 
             Console.ReadKey();
         }
 
-        static void GerarJSON(SpotifyContext db)
+        static void GerarJSON()
         {
-            var fileWriter = new StreamWriter(File.Create("Albuns.json"));
-            fileWriter.WriteLine(JsonConvert.SerializeObject(db.Albums.ToList()));
-            fileWriter.Dispose();
-            fileWriter = new StreamWriter(File.Create("Musicas.json"));
-            fileWriter.WriteLine(JsonConvert.SerializeObject(db.Musicas.ToList()));
-            fileWriter.Dispose();
-            fileWriter = new StreamWriter(File.Create("Usuarios.json"));
-            fileWriter.WriteLine(JsonConvert.SerializeObject(db.Usuarios.ToList()));
-            fileWriter.Dispose();
+            using (var db = GetContext())
+            {
+                var aaa = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Albuns.json");
+                var fileWriter = new StreamWriter(File.Create(aaa));
+                fileWriter.WriteLine(JsonConvert.SerializeObject(db.Albums.ToList()));
+                fileWriter.Dispose();
+                fileWriter = new StreamWriter(File.Create(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Musicas.json")));
+                fileWriter.WriteLine(JsonConvert.SerializeObject(db.Musicas.ToList()));
+                fileWriter.Dispose();
+                fileWriter = new StreamWriter(File.Create(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Usuarios.json")));
+                fileWriter.WriteLine(JsonConvert.SerializeObject(db.Usuarios.ToList()));
+                fileWriter.Dispose();
+            }
         }
 
-        static void GerarXML(SpotifyContext db)
+        static void GerarXML()
         {
-            XmlSerializer ser = new XmlSerializer(typeof(Dominio.Usuario));
-            TextWriter writer = new StreamWriter("Albuns.xml");
-            foreach(Album a in db.Albums.ToList())
-                ser.Serialize(writer, a);
-            writer.Dispose();
-            ser = new XmlSerializer(typeof(Dominio.Musica));
-            writer = new StreamWriter("Musicas.xml");
-            foreach (Musica a in db.Musicas.ToList())
-                ser.Serialize(writer, a);
-            writer.Dispose();
-            ser = new XmlSerializer(typeof(Dominio.Usuario));
-            writer = new StreamWriter("Usuarios.xml");
-            foreach (Usuario a in db.Usuarios.ToList())
-                ser.Serialize(writer, a);
-            writer.Dispose();
+            using (var db = GetContext())
+            {
+                XmlSerializer ser = new XmlSerializer(typeof(Dominio.Usuario));
+                TextWriter writer = new StreamWriter(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Albuns.xml"));
+                foreach (Album a in db.Albums.ToList())
+                    ser.Serialize(writer, a);
+                writer.Dispose();
+                ser = new XmlSerializer(typeof(Dominio.Musica));
+                writer = new StreamWriter(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Musicas.xml"));
+                foreach (Musica a in db.Musicas.ToList())
+                    ser.Serialize(writer, a);
+                writer.Dispose();
+                ser = new XmlSerializer(typeof(Dominio.Usuario));
+                writer = new StreamWriter(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Usuarios.xml"));
+                foreach (Usuario a in db.Usuarios.ToList())
+                    ser.Serialize(writer, a);
+                writer.Dispose();
+            }
         }
         
         static void AdicionarUsuarios()
