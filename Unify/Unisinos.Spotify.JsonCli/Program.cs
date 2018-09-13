@@ -46,11 +46,7 @@ namespace Unisinos.Spotify.JsonCli
         {
             using(var context = GetContext())
             {
-                var usuarios = context.Usuarios
-                                      .Include(u => u.PlaylistsCriadas)
-                                      .ThenInclude(p => p.PlaylistMusica)
-                                      .ThenInclude(pm => pm.Musica)
-                                      .ToList();
+                var usuarios = context.Playlists;
 
                                       
                  
