@@ -12,11 +12,13 @@ namespace Unisinos.Spotify.Infra.Mappings
 
             builder.HasKey(p => p.Id);
 
-            builder.Property(p => p.Nome).HasMaxLength(40);
+            builder.Property(p => p.Nome)
+                   .HasMaxLength(40);
 
-            builder.HasOne(p => p.Criador).WithMany(x => x.PlaylistsCriadas);
+            builder.HasOne(p => p.Criador);
 
-            builder.HasMany(p => p.PlaylistMusica).WithOne(x => x.Playlist);
+            builder.HasMany(p => p.PlaylistsMusicas)
+                   .WithOne(p => p.Playlist);
         }
     }
 }
