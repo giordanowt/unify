@@ -11,11 +11,53 @@ using Newtonsoft.Json;
 using System.Xml.Serialization;
 using System.Collections.Generic;
 
+using static System.Console;
+
 namespace Unisinos.Spotify.JsonCli
 {
     class Program
     {
         static void Main(string[] args)
+        {
+            int opt;
+            do 
+            {
+                WriteLine("1 - Seed dos dados");
+                WriteLine("2 - Gerar JSON");
+            }
+            while(!int.TryParse(ReadLine(), out opt) || opt < 1 || opt > 2);
+
+            switch(opt)
+            {
+                case 1:
+                    Seed();
+                    break;
+                case 2:
+                    GerarJson();
+                    break;
+            }
+
+            WriteLine(opt);
+
+            Console.ReadKey();
+        }
+
+        static void GerarJson()
+        {
+            using(var context = GetContext())
+            {
+                var usuarios = context.Usuarios
+                                      .Include(u => u.PlaylistsCriadas)
+                                      .ThenInclude(p => p.PlaylistMusica)
+                                      .ThenInclude(pm => pm.Musica)
+                                      .ToList();
+
+                                      
+                 
+            }
+        }
+
+        static void Seed()
         {
             //AdicionarUsuarios();
 
@@ -81,7 +123,7 @@ namespace Unisinos.Spotify.JsonCli
                 ser.Serialize(writer, a);
             writer.Dispose();
         }
-
+        
         static void AdicionarUsuarios()
         {
             using(var db = GetContext())

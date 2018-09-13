@@ -15,6 +15,8 @@ namespace Unisinos.Spotify.Infra.Mappings
             builder.Property(p => p.Nome).HasMaxLength(40);
 
             builder.HasOne(p => p.Criador).WithMany(x => x.PlaylistsCriadas);
+
+            builder.HasMany(p => p.PlaylistMusica).WithOne(x => x.Playlist);
         }
     }
 }
