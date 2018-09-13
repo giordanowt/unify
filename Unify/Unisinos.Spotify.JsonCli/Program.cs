@@ -25,7 +25,7 @@ namespace Unisinos.Spotify.JsonCli
                 WriteLine("2 - Gerar JSON");
                 WriteLine("3 - Gerar XML");
             }
-            while(!int.TryParse(ReadLine(), out opt) || opt < 1 || opt > 2);
+            while(!int.TryParse(ReadLine(), out opt) || opt < 1 || opt > 3);
 
             switch(opt)
             {
@@ -33,7 +33,7 @@ namespace Unisinos.Spotify.JsonCli
                     Seed();
                     break;
                 case 2:
-                    GerarJson();
+                    GerarJSON();
                     break;
                 case 3:
                     GerarXML();
@@ -45,16 +45,13 @@ namespace Unisinos.Spotify.JsonCli
             Console.ReadKey();
         }
 
-        static void GerarJson()
-        {
-            using(var context = GetContext())
-            {
-                var usuarios = context.Playlists;
-
-                                      
-                 
-            }
-        }
+        //static void GerarJson()
+        //{
+        //    using(var context = GetContext())
+        //    {
+        //        var usuarios = context.Playlists;
+        //    }
+        //}
 
         static void Seed()
         {
@@ -89,14 +86,13 @@ namespace Unisinos.Spotify.JsonCli
         {
             using (var db = GetContext())
             {
-                var aaa = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Albuns.json");
-                var fileWriter = new StreamWriter(File.Create(aaa));
+                var fileWriter = new StreamWriter(File.Create("Albuns.json"));
                 fileWriter.WriteLine(JsonConvert.SerializeObject(db.Albums.ToList()));
                 fileWriter.Dispose();
-                fileWriter = new StreamWriter(File.Create(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Musicas.json")));
+                fileWriter = new StreamWriter(File.Create("Musicas.json"));
                 fileWriter.WriteLine(JsonConvert.SerializeObject(db.Musicas.ToList()));
                 fileWriter.Dispose();
-                fileWriter = new StreamWriter(File.Create(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Usuarios.json")));
+                fileWriter = new StreamWriter(File.Create("Usuarios.json"));
                 fileWriter.WriteLine(JsonConvert.SerializeObject(db.Usuarios.ToList()));
                 fileWriter.Dispose();
             }
@@ -107,17 +103,17 @@ namespace Unisinos.Spotify.JsonCli
             using (var db = GetContext())
             {
                 XmlSerializer ser = new XmlSerializer(typeof(Dominio.Usuario));
-                TextWriter writer = new StreamWriter(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Albuns.xml"));
+                TextWriter writer = new StreamWriter("Albuns.xml");
                 foreach (Album a in db.Albums.ToList())
                     ser.Serialize(writer, a);
                 writer.Dispose();
                 ser = new XmlSerializer(typeof(Dominio.Musica));
-                writer = new StreamWriter(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Musicas.xml"));
+                writer = new StreamWriter("Musicas.xml");
                 foreach (Musica a in db.Musicas.ToList())
                     ser.Serialize(writer, a);
                 writer.Dispose();
                 ser = new XmlSerializer(typeof(Dominio.Usuario));
-                writer = new StreamWriter(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Usuarios.xml"));
+                writer = new StreamWriter("Usuarios.xml");
                 foreach (Usuario a in db.Usuarios.ToList())
                     ser.Serialize(writer, a);
                 writer.Dispose();
