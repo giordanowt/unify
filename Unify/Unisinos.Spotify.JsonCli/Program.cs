@@ -6,11 +6,14 @@ using Microsoft.Extensions.Configuration;
 using Unisinos.Spotify.Dominio;
 using Microsoft.EntityFrameworkCore;
 using System.Configuration;
-using System.Linq;
 using Newtonsoft.Json;
-using System.Xml.Serialization;
-
+using System.CodeDom;
 using static System.Console;
+using System.Xml;
+using System.Xml.Schema;
+using System.Xml.Serialization;
+using Microsoft.CSharp;
+using System.Diagnostics;
 
 namespace Unisinos.Spotify.JsonCli
 {
@@ -24,8 +27,9 @@ namespace Unisinos.Spotify.JsonCli
                 WriteLine("1 - Seed dos dados");
                 WriteLine("2 - Gerar JSON");
                 WriteLine("3 - Gerar XML");
+                WriteLine("4 - Gerar XSD");
             }
-            while(!int.TryParse(ReadLine(), out opt) || opt < 1 || opt > 3);
+            while(!int.TryParse(ReadLine(), out opt) || opt < 1 || opt > 4);
 
             switch(opt)
             {
@@ -38,20 +42,15 @@ namespace Unisinos.Spotify.JsonCli
                 case 3:
                     GerarXML();
                     break;
+                case 4:
+                    GerarXSD();
+                    break;
             }
 
             WriteLine(opt);
 
             Console.ReadKey();
         }
-
-        //static void GerarJson()
-        //{
-        //    using(var context = GetContext())
-        //    {
-        //        var usuarios = context.Playlists;
-        //    }
-        //}
 
         static void Seed()
         {
@@ -102,7 +101,7 @@ namespace Unisinos.Spotify.JsonCli
         {
             using (var db = GetContext())
             {
-                XmlSerializer ser = new XmlSerializer(typeof(Dominio.Usuario));
+                XmlSerializer ser = new XmlSerializer(typeof(Dominio.Album));
                 TextWriter writer = new StreamWriter("Albuns.xml");
                 foreach (Album a in db.Albums.ToList())
                     ser.Serialize(writer, a);
@@ -116,6 +115,45 @@ namespace Unisinos.Spotify.JsonCli
                 writer = new StreamWriter("Usuarios.xml");
                 foreach (Usuario a in db.Usuarios.ToList())
                     ser.Serialize(writer, a);
+                writer.Dispose();
+            }
+        }
+
+        static void GerarXSD()
+        {
+            using (var db = GetContext())
+            {
+                XmlSchemas schemas = new XmlSchemas();
+                XmlSchemaExporter exporter = new XmlSchemaExporter(schemas);
+                XmlTypeMapping mapping = new XmlReflectionImporter().ImportTypeMapping(typeof(Dominio.Album));
+                exporter.ExportTypeMapping(mapping);
+                TextWriter writer = new StreamWriter("Albuns.xsd");
+                foreach (XmlSchema schema in schemas)
+                {
+                    schema.Write(writer);
+                }
+                writer.Dispose();
+
+                schemas = new XmlSchemas();
+                exporter = new XmlSchemaExporter(schemas);
+                mapping = new XmlReflectionImporter().ImportTypeMapping(typeof(Dominio.Musica));
+                exporter.ExportTypeMapping(mapping);
+                writer = new StreamWriter("Musicas.xsd");
+                foreach (XmlSchema schema in schemas)
+                {
+                    schema.Write(writer);
+                }
+                writer.Dispose();
+
+                schemas = new XmlSchemas();
+                exporter = new XmlSchemaExporter(schemas);
+                mapping = new XmlReflectionImporter().ImportTypeMapping(typeof(Dominio.Usuario));
+                exporter.ExportTypeMapping(mapping);
+                writer = new StreamWriter("Usuarios.xsd");
+                foreach (XmlSchema schema in schemas)
+                {
+                    schema.Write(writer);
+                }
                 writer.Dispose();
             }
         }
