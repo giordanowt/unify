@@ -53,14 +53,6 @@ namespace Unisinos.Spotify.JsonCli
             Console.ReadKey();
         }
 
-        static void GerarJson()
-        {
-            using(var context = GetContext())
-            {
-                var playlists = context.Playlists.Include(p => p.Criador);
-            }
-        }
-
         static void Seed()
         {
             AdicionarUsuarios();
@@ -104,6 +96,9 @@ namespace Unisinos.Spotify.JsonCli
 
                 var usuarios = db.Usuarios.ToArray();
                 SerializarXml(usuarios, "./usuarios.xml");
+
+                var musicas = db.Musicas.ToArray();
+                SerializarXml(musicas, "./musicas.xml");
             }
         }
 
