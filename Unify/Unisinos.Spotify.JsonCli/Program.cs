@@ -30,7 +30,7 @@ namespace Unisinos.Spotify.JsonCli
                 WriteLine("3 - Gerar XML");
                 WriteLine("4 - Gerar XSD");
             }
-            while(!int.TryParse(ReadLine(), out opt) || opt < 1 || opt > 3);
+            while(!int.TryParse(ReadLine(), out opt) || opt < 1 || opt > 4);
 
             switch(opt)
             {
@@ -109,7 +109,7 @@ namespace Unisinos.Spotify.JsonCli
             var xml = "";
             using(var sw = new StringWriter())
             {
-                using(var writer = new XmlTextWriter(sw) { Formatting = System.Xml.Formatting.Indented })
+                using(var writer = new XmlTextWriter(sw) { Formatting = System.Xml.Formatting.Indented, Indentation = 4 })
                 {
                     serializer.Serialize(writer, model);
                     xml = sw.ToString();
@@ -118,43 +118,27 @@ namespace Unisinos.Spotify.JsonCli
             File.WriteAllText(nomeArquivo, xml);
         }
 
+        static void SerializarSchema(Type tipo, string nomeArquivo)
+        {
+            var schemas = new XmlSchemas();
+            var exporter = new XmlSchemaExporter(schemas);
+            var mapping = new XmlReflectionImporter().ImportTypeMapping(tipo);
+            exporter.ExportTypeMapping(mapping);
+            
+            TextWriter writer = new StreamWriter(nomeArquivo);
+            foreach (XmlSchema schema in schemas)
+            {
+                schema.Write(writer);
+            }
+            writer.Dispose();
+        }
+
         static void GerarXSD()
         {
-            using (var db = GetContext())
-            {
-                XmlSchemas schemas = new XmlSchemas();
-                XmlSchemaExporter exporter = new XmlSchemaExporter(schemas);
-                XmlTypeMapping mapping = new XmlReflectionImporter().ImportTypeMapping(typeof(Dominio.Album));
-                exporter.ExportTypeMapping(mapping);
-                TextWriter writer = new StreamWriter("Albuns.xsd");
-                foreach (XmlSchema schema in schemas)
-                {
-                    schema.Write(writer);
-                }
-                writer.Dispose();
-
-                schemas = new XmlSchemas();
-                exporter = new XmlSchemaExporter(schemas);
-                mapping = new XmlReflectionImporter().ImportTypeMapping(typeof(Dominio.Musica));
-                exporter.ExportTypeMapping(mapping);
-                writer = new StreamWriter("Musicas.xsd");
-                foreach (XmlSchema schema in schemas)
-                {
-                    schema.Write(writer);
-                }
-                writer.Dispose();
-
-                schemas = new XmlSchemas();
-                exporter = new XmlSchemaExporter(schemas);
-                mapping = new XmlReflectionImporter().ImportTypeMapping(typeof(Dominio.Usuario));
-                exporter.ExportTypeMapping(mapping);
-                writer = new StreamWriter("Usuarios.xsd");
-                foreach (XmlSchema schema in schemas)
-                {
-                    schema.Write(writer);
-                }
-                writer.Dispose();
-            }
+            SerializarSchema(typeof(Usuario), "./usuario.xsd");
+            SerializarSchema(typeof(Musica), "./musica.xsd");
+            SerializarSchema(typeof(Playlist), "./playlist.xsd");
+            SerializarSchema(typeof(Album), "./album.xsd");
         }
         
         static void AdicionarUsuarios()

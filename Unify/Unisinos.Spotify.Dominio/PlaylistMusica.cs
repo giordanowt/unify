@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Xml.Serialization;
 
 namespace Unisinos.Spotify.Dominio
 {
@@ -6,6 +7,8 @@ namespace Unisinos.Spotify.Dominio
     {
         public int Id { get; set; }
         public Musica Musica { get; set; }
+
+        [XmlIgnore]
         public Playlist Playlist { get; set; }
     }
 }
