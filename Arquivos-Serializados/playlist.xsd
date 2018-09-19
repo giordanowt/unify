@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="Playlist" nillable="true" type="Playlist" />
+  <xs:complexType name="Playlist">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Nome" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Criador" type="Usuario" />
+      <xs:element minOccurs="0" maxOccurs="1" name="RelacoesMusica" type="ArrayOfPlaylistMusica" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Usuario">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Nome" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ArrayOfPlaylistMusica">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="PlaylistMusica" nillable="true" type="PlaylistMusica" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PlaylistMusica">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Musica" type="Musica" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Playlist" type="Playlist" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Musica">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Nome" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="Duracao" type="xs:double" />
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

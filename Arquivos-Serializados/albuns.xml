@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-16"?>
+<ArrayOfAlbum xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <Album>
+        <Id>1</Id>
+        <Nome>Is this it</Nome>
+        <Musicas>
+            <Musica>
+                <Id>1</Id>
+                <Nome>Is this it</Nome>
+                <Duracao>3.1</Duracao>
+            </Musica>
+            <Musica>
+                <Id>2</Id>
+                <Nome>The modern age</Nome>
+                <Duracao>2.54</Duracao>
+            </Musica>
+            <Musica>
+                <Id>3</Id>
+                <Nome>Barely legal</Nome>
+                <Duracao>2.5</Duracao>
+            </Musica>
+            <Musica>
+                <Id>4</Id>
+                <Nome>Someday</Nome>
+                <Duracao>5</Duracao>
+            </Musica>
+        </Musicas>
+    </Album>
+    <Album>
+        <Id>2</Id>
+        <Nome>An awesome wave</Nome>
+        <Musicas>
+            <Musica>
+                <Id>5</Id>
+                <Nome>Intro</Nome>
+                <Duracao>7</Duracao>
+            </Musica>
+            <Musica>
+                <Id>6</Id>
+                <Nome>Tesselate</Nome>
+                <Duracao>5</Duracao>
+            </Musica>
+            <Musica>
+                <Id>7</Id>
+                <Nome>Breezeblocks</Nome>
+                <Duracao>4</Duracao>
+            </Musica>
+            <Musica>
+                <Id>8</Id>
+                <Nome>Matilda</Nome>
+                <Duracao>8</Duracao>
+            </Musica>
+        </Musicas>
+    </Album>
+</ArrayOfAlbum>

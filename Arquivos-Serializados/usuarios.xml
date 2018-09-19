@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-16"?>
+<ArrayOfUsuario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <Usuario>
+        <Id>1</Id>
+        <Nome>Jéferson</Nome>
+    </Usuario>
+    <Usuario>
+        <Id>2</Id>
+        <Nome>Giordano</Nome>
+    </Usuario>
+    <Usuario>
+        <Id>3</Id>
+        <Nome>Joaquim</Nome>
+    </Usuario>
+    <Usuario>
+        <Id>4</Id>
+        <Nome>Mário</Nome>
+    </Usuario>
+    <Usuario>
+        <Id>5</Id>
+        <Nome>Alex</Nome>
+    </Usuario>
+</ArrayOfUsuario>

@@ -1,0 +1,70 @@
+[
+  {
+    "Id": 1,
+    "Nome": "Músicas Bacanas",
+    "Criador": {
+      "Id": 1,
+      "Nome": "Jéferson"
+    },
+    "RelacoesMusica": [
+      {
+        "Id": 1,
+        "Musica": {
+          "Id": 5,
+          "Nome": "Intro",
+          "Duracao": 7.0
+        }
+      },
+      {
+        "Id": 2,
+        "Musica": {
+          "Id": 8,
+          "Nome": "Matilda",
+          "Duracao": 8.0
+        }
+      }
+    ]
+  },
+  {
+    "Id": 2,
+    "Nome": "Músicas Longas",
+    "Criador": {
+      "Id": 2,
+      "Nome": "Giordano"
+    },
+    "RelacoesMusica": [
+      {
+        "Id": 3,
+        "Musica": {
+          "Id": 4,
+          "Nome": "Someday",
+          "Duracao": 5.0
+        }
+      },
+      {
+        "Id": 4,
+        "Musica": {
+          "Id": 5,
+          "Nome": "Intro",
+          "Duracao": 7.0
+        }
+      },
+      {
+        "Id": 5,
+        "Musica": {
+          "Id": 6,
+          "Nome": "Tesselate",
+          "Duracao": 5.0
+        }
+      },
+      {
+        "Id": 6,
+        "Musica": {
+          "Id": 8,
+          "Nome": "Matilda",
+          "Duracao": 8.0
+        }
+      }
+    ]
+  }
+]

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-16"?>
+<ArrayOfPlaylist xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <Playlist>
+        <Id>1</Id>
+        <Nome>Músicas Bacanas</Nome>
+        <RelacoesMusica>
+            <PlaylistMusica>
+                <Id>1</Id>
+                <Musica>
+                    <Id>5</Id>
+                    <Nome>Intro</Nome>
+                    <Duracao>7</Duracao>
+                </Musica>
+            </PlaylistMusica>
+            <PlaylistMusica>
+                <Id>2</Id>
+                <Musica>
+                    <Id>8</Id>
+                    <Nome>Matilda</Nome>
+                    <Duracao>8</Duracao>
+                </Musica>
+            </PlaylistMusica>
+        </RelacoesMusica>
+    </Playlist>
+    <Playlist>
+        <Id>2</Id>
+        <Nome>Músicas Longas</Nome>
+        <RelacoesMusica>
+            <PlaylistMusica>
+                <Id>3</Id>
+                <Musica>
+                    <Id>4</Id>
+                    <Nome>Someday</Nome>
+                    <Duracao>5</Duracao>
+                </Musica>
+            </PlaylistMusica>
+            <PlaylistMusica>
+                <Id>4</Id>
+                <Musica>
+                    <Id>5</Id>
+                    <Nome>Intro</Nome>
+                    <Duracao>7</Duracao>
+                </Musica>
+            </PlaylistMusica>
+            <PlaylistMusica>
+                <Id>5</Id>
+                <Musica>
+                    <Id>6</Id>
+                    <Nome>Tesselate</Nome>
+                    <Duracao>5</Duracao>
+                </Musica>
+            </PlaylistMusica>
+            <PlaylistMusica>
+                <Id>6</Id>
+                <Musica>
+                    <Id>8</Id>
+                    <Nome>Matilda</Nome>
+                    <Duracao>8</Duracao>
+                </Musica>
+            </PlaylistMusica>
+        </RelacoesMusica>
+    </Playlist>
+</ArrayOfPlaylist>
