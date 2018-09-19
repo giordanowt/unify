@@ -28,6 +28,7 @@ namespace Unisinos.Spotify.JsonCli
                 WriteLine("1 - Seed dos dados");
                 WriteLine("2 - Gerar JSON");
                 WriteLine("3 - Gerar XML");
+                WriteLine("4 - Gerar XSD");
             }
             while(!int.TryParse(ReadLine(), out opt) || opt < 1 || opt > 3);
 
@@ -74,15 +75,17 @@ namespace Unisinos.Spotify.JsonCli
         {
             using (var db = GetContext())
             {
-                var fileWriter = new StreamWriter(File.Create("Albuns.json"));
-                fileWriter.WriteLine(JsonConvert.SerializeObject(db.Albums.ToList()));
-                fileWriter.Dispose();
-                fileWriter = new StreamWriter(File.Create("Musicas.json"));
-                fileWriter.WriteLine(JsonConvert.SerializeObject(db.Musicas.ToList()));
-                fileWriter.Dispose();
-                fileWriter = new StreamWriter(File.Create("Usuarios.json"));
-                fileWriter.WriteLine(JsonConvert.SerializeObject(db.Usuarios.ToList()));
-                fileWriter.Dispose();
+                var albuns = db.Albums.Include(a => a.Musicas).ToList();
+                var albunsJson = JsonConvert.SerializeObject(albuns, Newtonsoft.Json.Formatting.Indented);
+                File.WriteAllText("./albuns.json", albunsJson);
+
+                File.WriteAllText("./musicas.json", JsonConvert.SerializeObject(db.Musicas.ToList(), Newtonsoft.Json.Formatting.Indented));
+                File.WriteAllText("./usuarios.json", JsonConvert.SerializeObject(db.Usuarios.ToList(), Newtonsoft.Json.Formatting.Indented));
+
+                var playlists = db.Playlists.Include(p => p.RelacoesMusica).ThenInclude(r => r.Musica);
+                File.WriteAllText("./playlists.json", JsonConvert.SerializeObject(playlists, Newtonsoft.Json.Formatting.Indented, new JsonSerializerSettings {
+                    ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore,
+                }));
             }
         }
 
@@ -90,22 +93,34 @@ namespace Unisinos.Spotify.JsonCli
         {
             using (var db = GetContext())
             {
-                XmlSerializer ser = new XmlSerializer(typeof(Dominio.Album));
-                TextWriter writer = new StreamWriter("Albuns.xml");
-                foreach (Album a in db.Albums.ToList())
-                    ser.Serialize(writer, a);
-                writer.Dispose();
-                ser = new XmlSerializer(typeof(Dominio.Musica));
-                writer = new StreamWriter("Musicas.xml");
-                foreach (Musica a in db.Musicas.ToList())
-                    ser.Serialize(writer, a);
-                writer.Dispose();
-                ser = new XmlSerializer(typeof(Dominio.Usuario));
-                writer = new StreamWriter("Usuarios.xml");
-                foreach (Usuario a in db.Usuarios.ToList())
-                    ser.Serialize(writer, a);
-                writer.Dispose();
+                var albuns = db.Albums.Include(a => a.Musicas).ToArray();
+                SerializarXml(albuns, "./albuns.xml");
+
+                var playlists = db.Playlists.Include(a => a.RelacoesMusica)
+                                            .ThenInclude(r => r.Musica)
+                                            .ToArray();
+
+                SerializarXml(playlists, "./playlists.xml");
+
+                var usuarios = db.Usuarios.ToArray();
+                SerializarXml(usuarios, "./usuarios.xml");
             }
+        }
+
+        static void SerializarXml<T>(T model, string nomeArquivo) where T : class
+        {
+            XmlSerializer serializer = new XmlSerializer(typeof(T));
+            
+            var xml = "";
+            using(var sw = new StringWriter())
+            {
+                using(var writer = new XmlTextWriter(sw) { Formatting = System.Xml.Formatting.Indented })
+                {
+                    serializer.Serialize(writer, model);
+                    xml = sw.ToString();
+                }
+            }
+            File.WriteAllText(nomeArquivo, xml);
         }
 
         static void GerarXSD()
