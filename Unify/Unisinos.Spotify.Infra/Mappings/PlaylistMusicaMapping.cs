@@ -8,13 +8,13 @@ namespace Unisinos.Spotify.Infra.Mappings
     {
         public void Configure(EntityTypeBuilder<PlaylistMusica> builder)
         {
-            builder.ToTable("PlaylistMusica");
+            builder.ToTable("PlaylistsMusicas");
 
             builder.HasKey(p => p.Id);
 
-            builder.HasOne(p => p.Playlist).WithMany().IsRequired();
+            builder.HasOne(p => p.Playlist);
 
-            builder.HasOne(p => p.Musica).WithMany().IsRequired();
+            builder.HasOne(p => p.Musica);
         }
     }
 }

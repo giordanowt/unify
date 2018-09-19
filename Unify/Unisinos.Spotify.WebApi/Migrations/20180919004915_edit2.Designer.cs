@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Unisinos.Spotify.Infra;
 
 namespace Unisinos.Spotify.WebApi.Migrations
 {
     [DbContext(typeof(SpotifyContext))]
-    partial class SpotifyContextModelSnapshot : ModelSnapshot
+    [Migration("20180919004915_edit2")]
+    partial class edit2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -77,9 +79,9 @@ namespace Unisinos.Spotify.WebApi.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("MusicaId");
+                    b.Property<int>("MusicaId");
 
-                    b.Property<int?>("PlaylistId");
+                    b.Property<int>("PlaylistId");
 
                     b.HasKey("Id");
 
@@ -123,11 +125,13 @@ namespace Unisinos.Spotify.WebApi.Migrations
                 {
                     b.HasOne("Unisinos.Spotify.Dominio.Musica", "Musica")
                         .WithMany()
-                        .HasForeignKey("MusicaId");
+                        .HasForeignKey("MusicaId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Unisinos.Spotify.Dominio.Playlist", "Playlist")
                         .WithMany()
-                        .HasForeignKey("PlaylistId");
+                        .HasForeignKey("PlaylistId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

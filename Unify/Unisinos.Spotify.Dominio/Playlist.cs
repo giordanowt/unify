@@ -6,7 +6,6 @@ namespace Unisinos.Spotify.Dominio
     {
         public int Id { get; set; }
         public string Nome { get; set; }     
-        public Usuario Criador { get; set; }   
-        public ICollection<PlaylistMusica> PlaylistsMusicas { get; set; }
+        public Usuario Criador { get; set; }
     }
 }

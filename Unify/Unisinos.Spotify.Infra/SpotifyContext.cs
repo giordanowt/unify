@@ -15,6 +15,7 @@ namespace Unisinos.Spotify.Infra
         public DbSet<Musica> Musicas { get; set; }
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Playlist> Playlists { get; set; }
+        public DbSet<PlaylistMusica> PlaylistsMusicas { get; set; }
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -24,11 +25,6 @@ namespace Unisinos.Spotify.Infra
             modelBuilder.ApplyConfiguration(new MusicaMapping());                   
             modelBuilder.ApplyConfiguration(new PlaylistMusicaMapping());        
             modelBuilder.ApplyConfiguration(new UsuarioMapping());   
-        }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            //optionsBuilder.UseSqlServer(ConfigurationManager.ConnectionStrings["UnifyDatabase"].ConnectionString);
         }
     }
 }

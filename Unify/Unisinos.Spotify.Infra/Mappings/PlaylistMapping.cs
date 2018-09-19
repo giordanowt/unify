@@ -17,8 +17,8 @@ namespace Unisinos.Spotify.Infra.Mappings
 
             builder.HasOne(p => p.Criador);
 
-            builder.HasMany(p => p.PlaylistsMusicas)
-                   .WithOne(p => p.Playlist);
+            //builder.HasMany(p => p.PlaylistsMusicas)
+            //       .WithOne();
         }
     }
 }

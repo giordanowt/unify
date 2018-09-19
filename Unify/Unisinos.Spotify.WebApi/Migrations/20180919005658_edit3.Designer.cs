@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Unisinos.Spotify.Infra;
 
 namespace Unisinos.Spotify.WebApi.Migrations
 {
     [DbContext(typeof(SpotifyContext))]
-    partial class SpotifyContextModelSnapshot : ModelSnapshot
+    [Migration("20180919005658_edit3")]
+    partial class edit3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
